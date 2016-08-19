@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author LUCYLEONOR
@@ -46,7 +48,7 @@ public class Llamadas extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Costo de Llamada");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Monto Inicial");
@@ -56,26 +58,85 @@ public class Llamadas extends javax.swing.JFrame {
         jLabel3.setText("Monto Final");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
         jPanel1.add(txtMI, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 90, -1));
+
+        txtMF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMFKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtMF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 90, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Total a Pagar");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
 
         lblT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(lblT, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 120, 30));
+        jPanel1.add(lblT, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 120, 30));
 
         cmdRestaurar.setText("Restaurar");
-        jPanel1.add(cmdRestaurar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, -1, -1));
+        cmdRestaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRestaurarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdRestaurar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
 
         cmdCalcular.setText("Calcular");
-        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+
+        String r;
+        double mi, mf, t;
+        
+        mi = Double.parseDouble(txtMI.getText());
+        mf = Double.parseDouble(txtMF.getText());
+        
+        t = (mi - mf) * 1.20;
+        
+        r = String.valueOf(t);
+        lblT.setText(r);
+        
+    }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRestaurarActionPerformed
+
+        txtMI.setText("");
+        txtMF.setText("");
+        lblT.setText("");
+        txtMI.requestFocusInWindow();
+        
+    }//GEN-LAST:event_cmdRestaurarActionPerformed
+
+    private void txtMFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMFKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+        String r;
+        double mi, mf, t;
+        
+        mi = Double.parseDouble(txtMI.getText());
+        mf = Double.parseDouble(txtMF.getText());
+        
+        t = (mi - mf) * 1.20;
+        
+        r = String.valueOf(t);
+        lblT.setText(r);
+        
+        }
+        
+    }//GEN-LAST:event_txtMFKeyPressed
 
     /**
      * @param args the command line arguments
