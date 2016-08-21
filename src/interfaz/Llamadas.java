@@ -6,6 +6,7 @@
 package interfaz;
 
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,11 +58,23 @@ public class Llamadas extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Monto Final");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
+
+        txtMI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMIKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMIKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtMI, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 90, -1));
 
         txtMF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtMFKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMFKeyTyped(evt);
             }
         });
         jPanel1.add(txtMF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 90, -1));
@@ -97,17 +110,33 @@ public class Llamadas extends javax.swing.JFrame {
 
     private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
 
-        String r;
-        double mi, mf, t;
-        
-        mi = Double.parseDouble(txtMI.getText());
-        mf = Double.parseDouble(txtMF.getText());
-        
-        t = (mi - mf) * 1.20;
-        
-        r = String.valueOf(t);
-        lblT.setText(r);
-        
+        if (txtMI.getText().trim().isEmpty() && txtMF.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Montos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtMI.requestFocusInWindow();
+
+        } else if (txtMI.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ha Ingresado El Monto Inicial", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtMI.requestFocusInWindow();
+        } else if (txtMF.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ha Ingresado El Monto Final", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtMF.requestFocusInWindow();
+        } else if (txtMI.getText().equalsIgnoreCase("0")) {
+            JOptionPane.showMessageDialog(this, "El Monto Inicial No Puede Ser 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtMI.requestFocusInWindow();
+            txtMI.selectAll();
+        } else {
+
+            String r;
+            double mi, mf, t;
+
+            mi = Double.parseDouble(txtMI.getText());
+            mf = Double.parseDouble(txtMF.getText());
+
+            t = (mi - mf) * 1.20;
+
+            r = String.valueOf(t);
+            lblT.setText("$ " + r);
+        }
     }//GEN-LAST:event_cmdCalcularActionPerformed
 
     private void cmdRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRestaurarActionPerformed
@@ -122,21 +151,94 @@ public class Llamadas extends javax.swing.JFrame {
     private void txtMFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMFKeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            
-        String r;
-        double mi, mf, t;
-        
-        mi = Double.parseDouble(txtMI.getText());
-        mf = Double.parseDouble(txtMF.getText());
-        
-        t = (mi - mf) * 1.20;
-        
-        r = String.valueOf(t);
-        lblT.setText(r);
-        
+
+            if (txtMI.getText().trim().isEmpty() && txtMF.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Montos", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtMI.requestFocusInWindow();
+
+            } else if (txtMI.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Monto Inicial", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtMI.requestFocusInWindow();
+            } else if (txtMF.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Monto Final", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtMF.requestFocusInWindow();
+            } else if (txtMI.getText().equalsIgnoreCase("0")) {
+                JOptionPane.showMessageDialog(this, "El Monto Inicial No Puede Ser 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtMI.requestFocusInWindow();
+                txtMI.selectAll();
+            } else {
+
+                String r;
+                double mi, mf, t;
+
+                mi = Double.parseDouble(txtMI.getText());
+                mf = Double.parseDouble(txtMF.getText());
+
+                t = (mi - mf) * 1.20;
+
+                r = String.valueOf(t);
+                lblT.setText("$ " + r);
+            }
+
         }
         
     }//GEN-LAST:event_txtMFKeyPressed
+
+    private void txtMIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMIKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_txtMIKeyTyped
+
+    private void txtMFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMFKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMFKeyTyped
+
+    private void txtMIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMIKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            if (txtMI.getText().trim().isEmpty() && txtMF.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Montos", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtMI.requestFocusInWindow();
+
+            } else if (txtMI.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Monto Inicial", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtMI.requestFocusInWindow();
+            } else if (txtMF.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Monto Final", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtMF.requestFocusInWindow();
+            } else if (txtMI.getText().equalsIgnoreCase("0")) {
+                JOptionPane.showMessageDialog(this, "El Monto Inicial No Puede Ser 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtMI.requestFocusInWindow();
+                txtMI.selectAll();
+            } else {
+
+                String r;
+                double mi, mf, t;
+
+                mi = Double.parseDouble(txtMI.getText());
+                mf = Double.parseDouble(txtMF.getText());
+
+                t = (mi - mf) * 1.20;
+
+                r = String.valueOf(t);
+                lblT.setText("$ " + r);
+            }
+
+        }
+    }//GEN-LAST:event_txtMIKeyPressed
 
     /**
      * @param args the command line arguments
